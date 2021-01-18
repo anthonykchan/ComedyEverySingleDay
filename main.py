@@ -72,10 +72,15 @@ def getjoke():
         jk1, jk2, jk3, jk4, jk5, jk6, jk7, jk8, jk9, jk10, jk11, jk12, jk13,
         jk14, jk15, jk16, jk17, jk18, jk19, jk20, jk21
     ]
+
     global lastjoke 
     if lastjoke in jklist:
       jklist.remove(lastjoke)
+    
     randomjk = random.choice(jklist)
+  
+    lastjoke = randomjk
+
     return randomjk
 
 
@@ -89,12 +94,9 @@ def subscribe(name, email):
     email_smtp_port = 587
 
     #Email Content
-    thisjoke = getjoke()
     email_subject = "ComedyEverySingleDay Subscription"
-    email_body = "<html><body>Hi " + name + ",<p>Looks like you subscribed to ComedyEverySingleDay! Here's a joke to start you off:</p>" + thisjoke + "<p>Whenever you want another joke to brighten your day, just say yes on our program and you will recieve a joke. We hope you have fun with our program and thanks for subscribing!</p></body></html>"
-    global lastjoke 
-    lastjoke = thisjoke
-
+    email_body = "<html><body>Hi " + name + ",<p>Looks like you subscribed to ComedyEverySingleDay! Here's a joke to start you off:</p>" + getjoke() + "<p>Whenever you want another joke to brighten your day, just say yes on our program and you will recieve a joke. We hope you have fun with our program and thanks for subscribing!</p></body></html>"
+    
     #login to email server
     server = smtplib.SMTP(email_smtp_server, email_smtp_port)
     server.starttls()
@@ -122,11 +124,8 @@ def send_email(name, email):
     email_smtp_port = 587
 
     #Email Content
-    thisjoke = getjoke()
     email_subject = "ComedyEverySingleDay Subscription"
-    email_body = "<html><body>Hi " + name + ",<p>Here's another joke:</p>" + thisjoke + "<p>Whenever you want another joke, just say yes on our program again and you will recieve a new joke. We hope you continue to have fun with our program and thanks for subscribing!</p></body></html>"
-    global lastjoke 
-    lastjoke = thisjoke
+    email_body = "<html><body>Hi " + name + ",<p>Here's another joke:</p>" + getjoke() + "<p>Whenever you want another joke, just say yes on our program again and you will recieve a new joke. We hope you continue to have fun with our program and thanks for subscribing!</p></body></html>"
 
     #login to email server
     server = smtplib.SMTP(email_smtp_server, email_smtp_port)
